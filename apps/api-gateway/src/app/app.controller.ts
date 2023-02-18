@@ -10,4 +10,19 @@ export class AppController {
   getData() {
     return this.appService.getData();
   }
+
+  @Get('/auth')
+  getAuthData() {
+    return this.appService.getAuthData();
+  }
+
+  @Get('/product')
+  getProductData() {
+    return this.appService.getProductData();
+  }
+
+  @Get('/order')
+  getOrderData() {
+    return this.appService.getOrderData();
+  }
 }

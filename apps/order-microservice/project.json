@@ -1,13 +1,8 @@
 {
-  "name": "api-gateway",
+  "name": "order-microservice",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/api-gateway/src",
+  "sourceRoot": "apps/order-microservice/src",
   "projectType": "application",
-  "implicitDependencies": [
-    "auth-microservice",
-    "product-microservice",
-    "order-microservice"
-  ],
   "targets": {
     "build": {
       "executor": "@nrwl/webpack:webpack",
@@ -15,12 +10,12 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/api-gateway",
-        "main": "apps/api-gateway/src/main.ts",
-        "tsConfig": "apps/api-gateway/tsconfig.app.json",
-        "assets": ["apps/api-gateway/src/assets"],
+        "outputPath": "dist/apps/order-microservice",
+        "main": "apps/order-microservice/src/main.ts",
+        "tsConfig": "apps/order-microservice/tsconfig.app.json",
+        "assets": ["apps/order-microservice/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/api-gateway/webpack.config.js"
+        "webpackConfig": "apps/order-microservice/webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -33,11 +28,11 @@
     "serve": {
       "executor": "@nrwl/js:node",
       "options": {
-        "buildTarget": "api-gateway:build"
+        "buildTarget": "order-microservice:build"
       },
       "configurations": {
         "production": {
-          "buildTarget": "api-gateway:build:production"
+          "buildTarget": "order-microservice:build:production"
         }
       }
     },
@@ -45,14 +40,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/api-gateway/**/*.ts"]
+        "lintFilePatterns": ["apps/order-microservice/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/api-gateway/jest.config.ts",
+        "jestConfig": "apps/order-microservice/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

@@ -2,7 +2,8 @@
   "name": "nest-microservice-example",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
+  "license": "GPL-3.0",
+  "author": "Jaime Leonardo Suncin Cruz <leosuncin@gmail.com>",
   "scripts": {
     "affected:build": "nx affected:build",
     "affected:e2e": "nx affected:e2e",

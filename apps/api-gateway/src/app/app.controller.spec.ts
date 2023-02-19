@@ -10,7 +10,23 @@ describe('AppController', () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
       providers: [AppService],
-    }).compile();
+    })
+      .useMocker((token) => {
+        const services = new Set<unknown>([
+          'AUTH_SERVICE',
+          'PRODUCT_SERVICE',
+          'ORDER_SERVICE',
+        ]);
+
+        if (services.has(token)) {
+          return {
+            send: jest.fn(),
+          };
+        }
+
+        return;
+      })
+      .compile();
   });
 
   describe('getData', () => {

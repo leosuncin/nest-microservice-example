@@ -1,0 +1,21 @@
+services:
+  rabbitmq:
+    image: docker.io/bitnami/rabbitmq:3.11
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_SECURE_PASSWORD=yes
+      - RABBITMQ_NODE_TYPE=queue-disc
+      - RABBITMQ_PLUGINS=rabbitmq_management
+    volumes:
+      - rabbitmq-data:/bitnami
+    healthcheck:
+      test: rabbitmq-diagnostics -q status && rabbitmq-diagnostics -q check_local_alarms
+      interval: 15s
+      timeout: 20s
+      start_period: 15s
+      retries: 3
+volumes:
+  rabbitmq-data:
+    driver: local

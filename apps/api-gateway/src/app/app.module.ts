@@ -9,23 +9,35 @@ import { AppService } from './app.service';
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.RMQ,
         options: {
-          port: 3344,
+          urls: [
+            process.env['RABBIT_MQ_URL'] ??
+              'amqp://user:bitnami@localhost:5672',
+          ],
+          queue: 'AUTH_QUEUE',
         },
       },
       {
         name: 'PRODUCT_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.RMQ,
         options: {
-          port: 3345,
+          urls: [
+            process.env['RABBIT_MQ_URL'] ??
+              'amqp://user:bitnami@localhost:5672',
+          ],
+          queue: 'PRODUCT_QUEUE',
         },
       },
       {
         name: 'ORDER_SERVICE',
-        transport: Transport.TCP,
+        transport: Transport.RMQ,
         options: {
-          port: 3346,
+          urls: [
+            process.env['RABBIT_MQ_URL'] ??
+              'amqp://user:bitnami@localhost:5672',
+          ],
+          queue: 'ORDER_QUEUE',
         },
       },
     ]),

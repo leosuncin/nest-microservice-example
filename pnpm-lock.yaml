@@ -16,10 +16,13 @@ specifiers:
   '@nrwl/node': 15.7.2
   '@nrwl/webpack': 15.7.2
   '@nrwl/workspace': 15.7.2
+  '@types/amqplib': ^0.10.1
   '@types/jest': 28.1.1
   '@types/node': 18.7.1
   '@typescript-eslint/eslint-plugin': ^5.36.1
   '@typescript-eslint/parser': ^5.36.1
+  amqp-connection-manager: ^4.1.10
+  amqplib: ^0.10.3
   axios: ^1.0.0
   eslint: ~8.15.0
   eslint-config-prettier: 8.1.0
@@ -45,8 +48,10 @@ specifiers:
 dependencies:
   '@nestjs/common': 9.3.9_mnr6j2del53muneqly5h4y27ai
   '@nestjs/core': 9.3.9_2gy3ue5x42wrsmq2vmyf6yjc3m
-  '@nestjs/microservices': 9.3.9_xap76i5unmrgcq3fgd6nhqgyvy
+  '@nestjs/microservices': 9.3.9_6glxvqvvqfhbs2ljjujbhth234
   '@nestjs/platform-express': 9.3.9_77foi4w27ghy47yutmnzv7krjy
+  amqp-connection-manager: 4.1.10_amqplib@0.10.3
+  amqplib: 0.10.3
   axios: 1.3.3
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
@@ -64,6 +69,7 @@ devDependencies:
   '@nrwl/node': 15.7.2_mgopgrqbztbsw3ogcsrrzdddqi
   '@nrwl/webpack': 15.7.2_wg44dqkavgbmeppfz7r4ieu3uu
   '@nrwl/workspace': 15.7.2_3joxs7tzhkrjjacnd53qs32tau
+  '@types/amqplib': 0.10.1
   '@types/jest': 28.1.1
   '@types/node': 18.7.1
   '@typescript-eslint/eslint-plugin': 5.52.0_huh36gigj23gnna3grmw65d4ti
@@ -87,6 +93,19 @@ devDependencies:
   typescript: 4.8.4
 
 packages:
+  /@acuminous/bitsyntax/0.1.2:
+    resolution:
+      {
+        integrity: sha512-29lUK80d1muEQqiUsSo+3A0yP6CdspgC95EnKBMi22Xlwt79i/En4Vr67+cXhU+cZjbti3TgGGC5wy1stIywVQ==,
+      }
+    engines: { node: '>=0.8' }
+    dependencies:
+      buffer-more-ints: 1.0.0
+      debug: 4.3.4
+      safe-buffer: 5.1.2
+    transitivePeerDependencies:
+      - supports-color
+
   /@ampproject/remapping/2.2.0:
     resolution:
       {
@@ -2463,7 +2482,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.3.9_mnr6j2del53muneqly5h4y27ai
-      '@nestjs/microservices': 9.3.9_xap76i5unmrgcq3fgd6nhqgyvy
+      '@nestjs/microservices': 9.3.9_6glxvqvvqfhbs2ljjujbhth234
       '@nestjs/platform-express': 9.3.9_77foi4w27ghy47yutmnzv7krjy
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
@@ -2476,7 +2495,7 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@nestjs/microservices/9.3.9_xap76i5unmrgcq3fgd6nhqgyvy:
+  /@nestjs/microservices/9.3.9_6glxvqvvqfhbs2ljjujbhth234:
     resolution:
       {
         integrity: sha512-G4EsQpOS3l2dWjJID+z/YyDPTx+SEq/5YQ/cC8XV9Hap1S0rEmo+Z1R2OdlUt+ZnkcJp7H0GIHiB0EjaYanmjA==,
@@ -2517,6 +2536,8 @@ packages:
     dependencies:
       '@nestjs/common': 9.3.9_mnr6j2del53muneqly5h4y27ai
       '@nestjs/core': 9.3.9_2gy3ue5x42wrsmq2vmyf6yjc3m
+      amqp-connection-manager: 4.1.10_amqplib@0.10.3
+      amqplib: 0.10.3
       iterare: 1.2.1
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
@@ -2577,7 +2598,7 @@ packages:
     dependencies:
       '@nestjs/common': 9.3.9_mnr6j2del53muneqly5h4y27ai
       '@nestjs/core': 9.3.9_2gy3ue5x42wrsmq2vmyf6yjc3m
-      '@nestjs/microservices': 9.3.9_xap76i5unmrgcq3fgd6nhqgyvy
+      '@nestjs/microservices': 9.3.9_6glxvqvvqfhbs2ljjujbhth234
       '@nestjs/platform-express': 9.3.9_77foi4w27ghy47yutmnzv7krjy
       tslib: 2.5.0
     dev: true
@@ -3182,6 +3203,15 @@ packages:
       {
         integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==,
       }
+    dev: true
+
+  /@types/amqplib/0.10.1:
+    resolution:
+      {
+        integrity: sha512-j6ANKT79ncUDnAs/+9r9eDujxbeJoTjoVu33gHHcaPfmLQaMhvfbH2GqSe8KUM444epAp1Vl3peVOQfZk3UIqA==,
+      }
+    dependencies:
+      '@types/node': 18.14.0
     dev: true
 
   /@types/babel__core/7.20.0:
@@ -4093,6 +4123,32 @@ packages:
       uri-js: 4.4.1
     dev: true
 
+  /amqp-connection-manager/4.1.10_amqplib@0.10.3:
+    resolution:
+      {
+        integrity: sha512-0289u5PQ/0s8o9Gbq3YZw7euIDp2ETjvTwams/yletCcTJC+HyK2DiMe8gRK688tCufdou5avoFCWDlTN9QeRQ==,
+      }
+    engines: { node: '>=10.0.0', npm: '>5.0.0' }
+    peerDependencies:
+      amqplib: '*'
+    dependencies:
+      amqplib: 0.10.3
+      promise-breaker: 6.0.0
+
+  /amqplib/0.10.3:
+    resolution:
+      {
+        integrity: sha512-UHmuSa7n8vVW/a5HGh2nFPqAEr8+cD4dEZ6u9GjP91nHfr1a54RyAKyra7Sb5NH7NBKOUlyQSMXIp0qAixKexw==,
+      }
+    engines: { node: '>=10' }
+    dependencies:
+      '@acuminous/bitsyntax': 0.1.2
+      buffer-more-ints: 1.0.0
+      readable-stream: 1.1.14
+      url-parse: 1.5.10
+    transitivePeerDependencies:
+      - supports-color
+
   /ansi-colors/4.1.3:
     resolution:
       {
@@ -4709,6 +4765,12 @@ packages:
     resolution:
       {
         integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==,
+      }
+
+  /buffer-more-ints/1.0.0:
+    resolution:
+      {
+        integrity: sha512-EMetuGFz5SLsT0QTnXzINh4Ksr+oo4i+UGTXEshiGCQWnsgSs7ZhJ8fzlwQ+OzEMs0MpDAMr1hxnblp5a4vcHg==,
       }
 
   /buffer/5.7.1:
@@ -5631,7 +5693,6 @@ packages:
         optional: true
     dependencies:
       ms: 2.1.2
-    dev: true
 
   /decamelize-keys/1.1.1:
     resolution:
@@ -7997,6 +8058,12 @@ packages:
       is-docker: 2.2.1
     dev: true
 
+  /isarray/0.0.1:
+    resolution:
+      {
+        integrity: sha512-D2S+3GLxWH+uhrNEcoh/fnmYeP8E8/zHl644d/jdA0g2uyXvy3sb0qxotE+ne0LtccHknQzWwZEzhak7oJ0COQ==,
+      }
+
   /isarray/1.0.0:
     resolution:
       {
@@ -9583,7 +9650,6 @@ packages:
       {
         integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==,
       }
-    dev: true
 
   /ms/2.1.3:
     resolution:
@@ -10803,6 +10869,12 @@ packages:
         integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==,
       }
 
+  /promise-breaker/6.0.0:
+    resolution:
+      {
+        integrity: sha512-BthzO9yTPswGf7etOBiHCVuugs2N01/Q/94dIPls48z2zCmrnDptUUZzfIb+41xq0MnYZ/BzmOd6ikDR4ibNZA==,
+      }
+
   /prompts/2.4.2:
     resolution:
       {
@@ -10875,7 +10947,6 @@ packages:
       {
         integrity: sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==,
       }
-    dev: true
 
   /queue-microtask/1.2.3:
     resolution:
@@ -10967,6 +11038,17 @@ packages:
       parse-json: 5.2.0
       type-fest: 0.6.0
     dev: true
+
+  /readable-stream/1.1.14:
+    resolution:
+      {
+        integrity: sha512-+MeVjFf4L44XUkhM1eYbD8fyEsxcV81pqMSR5gblfcLCHfZvbrqy4/qYHE+/R5HoBUT11WV5O08Cr1n3YXkWVQ==,
+      }
+    dependencies:
+      core-util-is: 1.0.3
+      inherits: 2.0.4
+      isarray: 0.0.1
+      string_decoder: 0.10.31
 
   /readable-stream/2.3.7:
     resolution:
@@ -11120,7 +11202,6 @@ packages:
       {
         integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==,
       }
-    dev: true
 
   /resolve-cwd/3.0.0:
     resolution:
@@ -11893,6 +11974,12 @@ packages:
       define-properties: 1.2.0
       es-abstract: 1.21.1
     dev: true
+
+  /string_decoder/0.10.31:
+    resolution:
+      {
+        integrity: sha512-ev2QzSzWPYmy9GuqfIVildA4OdcGLeFZQrq5ys6RtiuF+RQQiZWr8TZNyAcuVXyQRYfEO+MsoB/1BuQVhOJuoQ==,
+      }
 
   /string_decoder/1.1.1:
     resolution:
@@ -12742,7 +12829,6 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
-    dev: true
 
   /util-deprecate/1.0.2:
     resolution:

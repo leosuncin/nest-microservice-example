@@ -1,3 +1,9 @@
+import {
+  AuthClientService,
+  getServiceName,
+  OrderClientService,
+  ProductClientService,
+} from '@example/shared-microservice';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AppController } from './app.controller';
@@ -9,18 +15,24 @@ describe('AppController', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
-      providers: [AppService],
+      providers: [
+        AuthClientService,
+        ProductClientService,
+        OrderClientService,
+        AppService,
+      ],
     })
       .useMocker((token) => {
         const services = new Set<unknown>([
-          'AUTH_SERVICE',
-          'PRODUCT_SERVICE',
-          'ORDER_SERVICE',
+          getServiceName('auth'),
+          getServiceName('product'),
+          getServiceName('order'),
         ]);
 
         if (services.has(token)) {
           return {
             send: jest.fn(),
+            emit: jest.fn(),
           };
         }
 

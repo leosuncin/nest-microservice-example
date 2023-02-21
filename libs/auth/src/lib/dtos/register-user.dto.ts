@@ -8,6 +8,8 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { IsNotRegister } from '../validators/is-not-register.validator';
+
 export class RegisterUser implements Register {
   @IsDefined()
   @IsString()
@@ -18,6 +20,7 @@ export class RegisterUser implements Register {
   @IsString()
   @IsNotEmpty()
   @IsEmail()
+  @IsNotRegister()
   readonly email!: string;
 
   @IsDefined()

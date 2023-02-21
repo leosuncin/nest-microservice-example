@@ -1,3 +1,4 @@
+import { Register } from '@example/shared-interfaces';
 import {
   IsDefined,
   IsEmail,
@@ -7,7 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class RegisterUser {
+export class RegisterUser implements Register {
   @IsDefined()
   @IsString()
   @IsNotEmpty()

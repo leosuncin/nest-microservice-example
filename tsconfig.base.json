@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@example/auth": ["libs/auth/src/index.ts"],
+      "@example/shared-interfaces": ["libs/shared-interfaces/src/index.ts"],
       "@example/shared-microservice": ["libs/shared-microservice/src/index.ts"]
     }
   },

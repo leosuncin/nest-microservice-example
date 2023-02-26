@@ -4,12 +4,14 @@ import {
   Post,
   Request,
   UseGuards,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
 import { LOCAL_GUARD } from '../constants/guards';
 import { RegisterUser } from '../dtos/register-user.dto';
+import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { UserService } from '../services/user.service';
 
 const validationPipe = new ValidationPipe({
@@ -19,6 +21,7 @@ const validationPipe = new ValidationPipe({
 });
 
 @Controller('auth')
+@UseInterceptors(TokenInterceptor)
 export class AuthController {
   constructor(private readonly userService: UserService) {}
 

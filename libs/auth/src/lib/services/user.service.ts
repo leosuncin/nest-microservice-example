@@ -4,7 +4,7 @@ import type { FilterQuery, Model } from 'mongoose';
 
 import { RegisterUser } from '../dtos/register-user.dto';
 import { User, UserDocument } from '../schemas/user.schema';
-import { hashPassword } from '../utils/crypto';
+import { hashPassword, verifyPassword } from '../utils/crypto';
 
 @Injectable()
 export class UserService {
@@ -30,5 +30,24 @@ export class UserService {
     const count = await this.userModel.count(where).exec();
 
     return count >= 1;
+  }
+
+  async login(
+    email: string,
+    password: string
+  ): Promise<UserDocument | undefined> {
+    const user = await this.userModel.findOne({ email }).exec();
+
+    if (!user) {
+      return;
+    }
+
+    const isPasswordValid = await verifyPassword(user.password, password);
+
+    if (!isPasswordValid) {
+      return;
+    }
+
+    return user;
   }
 }

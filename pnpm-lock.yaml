@@ -8,6 +8,7 @@ specifiers:
   '@nestjs/mapped-types': ^1.2.0
   '@nestjs/microservices': ^9.0.0
   '@nestjs/mongoose': ^9.2.1
+  '@nestjs/passport': ^9.0.3
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schematics': ^9.0.0
   '@nestjs/testing': ^9.0.0
@@ -21,6 +22,7 @@ specifiers:
   '@types/amqplib': ^0.10.1
   '@types/jest': 28.1.1
   '@types/node': 18.7.1
+  '@types/passport-local': ^1.0.35
   '@typescript-eslint/eslint-plugin': ^5.36.1
   '@typescript-eslint/parser': ^5.36.1
   amqp-connection-manager: ^4.1.10
@@ -41,6 +43,8 @@ specifiers:
   lint-staged: ^13.1.2
   mongoose: ^6.9.2
   nx: 15.7.2
+  passport: ^0.6.0
+  passport-local: ^1.0.0
   prettier: ^2.6.2
   reflect-metadata: ^0.1.13
   rxjs: ^7.0.0
@@ -56,6 +60,7 @@ dependencies:
   '@nestjs/mapped-types': 1.2.2_sm5si6oczf3vcbfl6qa276t67m
   '@nestjs/microservices': 9.3.9_6glxvqvvqfhbs2ljjujbhth234
   '@nestjs/mongoose': 9.2.1_5eablghbhvj6tunqdl55vuncby
+  '@nestjs/passport': 9.0.3_v3ijvyhfbmibt6kvwmic262qla
   '@nestjs/platform-express': 9.3.9_77foi4w27ghy47yutmnzv7krjy
   amqp-connection-manager: 4.1.10_amqplib@0.10.3
   amqplib: 0.10.3
@@ -63,6 +68,8 @@ dependencies:
   class-transformer: 0.5.1
   class-validator: 0.14.0
   mongoose: 6.9.2
+  passport: 0.6.0
+  passport-local: 1.0.0
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
   tslib: 2.5.0
@@ -82,6 +89,7 @@ devDependencies:
   '@types/amqplib': 0.10.1
   '@types/jest': 28.1.1
   '@types/node': 18.7.1
+  '@types/passport-local': 1.0.35
   '@typescript-eslint/eslint-plugin': 5.52.0_huh36gigj23gnna3grmw65d4ti
   '@typescript-eslint/parser': 5.52.0_oy7hgmlo6357d5kkcjbkfgtg4q
   eslint: 8.15.0
@@ -3606,6 +3614,19 @@ packages:
       rxjs: 7.8.0
     dev: false
 
+  /@nestjs/passport/9.0.3_v3ijvyhfbmibt6kvwmic262qla:
+    resolution:
+      {
+        integrity: sha512-HplSJaimEAz1IOZEu+pdJHHJhQyBOPAYWXYHfAPQvRqWtw4FJF1VXl1Qtk9dcXQX1eKytDtH+qBzNQc19GWNEg==,
+      }
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0
+      passport: ^0.4.0 || ^0.5.0 || ^0.6.0
+    dependencies:
+      '@nestjs/common': 9.3.9_welcnyot5bzd5wa2aovbkxpi4i
+      passport: 0.6.0
+    dev: false
+
   /@nestjs/platform-express/9.3.9_77foi4w27ghy47yutmnzv7krjy:
     resolution:
       {
@@ -4530,6 +4551,36 @@ packages:
       {
         integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==,
       }
+    dev: true
+
+  /@types/passport-local/1.0.35:
+    resolution:
+      {
+        integrity: sha512-K4eLTJ8R0yYW8TvCqkjB0pTKoqfUSdl5PfZdidTjV2ETV3604fQxtY6BHKjQWAx50WUS0lqzBvKv3LoI1ZBPeA==,
+      }
+    dependencies:
+      '@types/express': 4.17.17
+      '@types/passport': 1.0.12
+      '@types/passport-strategy': 0.2.35
+    dev: true
+
+  /@types/passport-strategy/0.2.35:
+    resolution:
+      {
+        integrity: sha512-o5D19Jy2XPFoX2rKApykY15et3Apgax00RRLf0RUotPDUsYrQa7x4howLYr9El2mlUApHmCMv5CZ1IXqKFQ2+g==,
+      }
+    dependencies:
+      '@types/express': 4.17.17
+      '@types/passport': 1.0.12
+    dev: true
+
+  /@types/passport/1.0.12:
+    resolution:
+      {
+        integrity: sha512-QFdJ2TiAEoXfEQSNDISJR1Tm51I78CymqcBa8imbjo6dNNu+l2huDxxbDEIoFIwOSKMkOfHEikyDuZ38WwWsmw==,
+      }
+    dependencies:
+      '@types/express': 4.17.17
     dev: true
 
   /@types/prettier/2.7.2:
@@ -11431,6 +11482,36 @@ packages:
       }
     engines: { node: '>= 0.8' }
 
+  /passport-local/1.0.0:
+    resolution:
+      {
+        integrity: sha512-9wCE6qKznvf9mQYYbgJ3sVOHmCWoUNMVFoZzNoznmISbhnNNPhN9xfY3sLmScHMetEJeoY7CXwfhCe7argfQow==,
+      }
+    engines: { node: '>= 0.4.0' }
+    dependencies:
+      passport-strategy: 1.0.0
+    dev: false
+
+  /passport-strategy/1.0.0:
+    resolution:
+      {
+        integrity: sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==,
+      }
+    engines: { node: '>= 0.4.0' }
+    dev: false
+
+  /passport/0.6.0:
+    resolution:
+      {
+        integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==,
+      }
+    engines: { node: '>= 0.4.0' }
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+      utils-merge: 1.0.1
+    dev: false
+
   /path-exists/4.0.0:
     resolution:
       {
@@ -11489,6 +11570,13 @@ packages:
       }
     engines: { node: '>=8' }
     dev: true
+
+  /pause/0.0.1:
+    resolution:
+      {
+        integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==,
+      }
+    dev: false
 
   /picocolors/1.0.0:
     resolution:

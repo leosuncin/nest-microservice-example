@@ -1,7 +1,14 @@
-import { authEvents } from '@example/shared-microservice';
-import { Controller, ValidationPipe } from '@nestjs/common';
-import { EventPattern, Payload } from '@nestjs/microservices';
+import {
+  Body,
+  Controller,
+  Post,
+  Request,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
+import { LOCAL_GUARD } from '../constants/guards';
 import { RegisterUser } from '../dtos/register-user.dto';
 import { UserService } from '../services/user.service';
 
@@ -15,8 +22,14 @@ const validationPipe = new ValidationPipe({
 export class AuthController {
   constructor(private readonly userService: UserService) {}
 
-  @EventPattern(authEvents.register)
-  register(@Payload(validationPipe) register: RegisterUser) {
+  @Post('register')
+  register(@Body(validationPipe) register: RegisterUser) {
     return this.userService.create(register);
+  }
+
+  @Post('login')
+  @UseGuards(AuthGuard(LOCAL_GUARD))
+  login(@Request() request: Express.Request) {
+    return request.user;
   }
 }

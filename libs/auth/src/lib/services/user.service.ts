@@ -51,6 +51,29 @@ export class UserService {
     return user;
   }
 
+  async verifyCredentials<Data extends Pick<User, 'email' | 'password'>>(
+    credentials: Data,
+    property: keyof Data
+  ): Promise<boolean> {
+    const query: FilterQuery<UserDocument> = {};
+
+    if ('email' in credentials) {
+      query.email = { $eq: credentials.email };
+    }
+
+    const user = await this.userModel.findOne(query);
+
+    if (!user) {
+      return false;
+    }
+
+    if (property !== 'password') {
+      return true;
+    }
+
+    return verifyPassword(user.password, credentials.password);
+  }
+
   getById(id: User['id']): Promise<UserDocument | null> {
     return this.userModel.findById(id).exec();
   }

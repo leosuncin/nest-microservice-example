@@ -50,4 +50,8 @@ export class UserService {
 
     return user;
   }
+
+  getById(id: User['id']): Promise<UserDocument | null> {
+    return this.userModel.findById(id).exec();
+  }
 }

@@ -77,4 +77,8 @@ export class UserService {
   getById(id: User['id']): Promise<UserDocument | null> {
     return this.userModel.findById(id).exec();
   }
+
+  getAll(): Promise<UserDocument[]> {
+    return this.userModel.find().exec();
+  }
 }

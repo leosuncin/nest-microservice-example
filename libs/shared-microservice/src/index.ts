@@ -3,6 +3,7 @@ export * from './lib/config/get-micro-service-options';
 export * from './lib/constants/auth.events';
 export * from './lib/constants/order.events';
 export * from './lib/constants/product.events';
+export * from './lib/constants/user.events';
 export * from './lib/decorators/auth.decorator';
 export * from './lib/decorators/order.decorator';
 export * from './lib/decorators/product.decorator';

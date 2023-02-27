@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import type { FilterQuery, Model } from 'mongoose';
 
 import { RegisterUser } from '../dtos/register-user.dto';
+import { UpdateUser } from '../dtos/update-user.dto';
 import { User, UserDocument } from '../schemas/user.schema';
 import { hashPassword, verifyPassword } from '../utils/crypto';
 
@@ -80,5 +81,21 @@ export class UserService {
 
   getAll(): Promise<UserDocument[]> {
     return this.userModel.find().exec();
+  }
+
+  async updateOne(id: User['id'], changes: UpdateUser) {
+    const user = await this.getById(id);
+
+    if (!user) {
+      return;
+    }
+
+    user.set(changes);
+
+    if (changes.password) {
+      user.password = await hashPassword(changes.password);
+    }
+
+    return user.save();
   }
 }

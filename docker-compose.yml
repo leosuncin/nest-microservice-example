@@ -26,6 +26,28 @@ services:
       - '16686:16686'
       - '14268:14268'
       - '9411:9411'
+  mongodb:
+    image: docker.io/bitnami/mongodb:6.0
+    ports:
+      - '27017-27019:27017-27019'
+    environment:
+      - MONGODB_ROOT_PASSWORD=password
+      - MONGODB_USERNAME=mongo
+      - MONGODB_PASSWORD=password
+      - MONGODB_DATABASE=auth
+    volumes:
+      - mongodb-data:/bitnami/mongodb
+    healthcheck:
+      test: >
+        if mongo --quiet mongodb/test --eval 'quit(db.runCommand({ ping: 1 }).ok ? 0 : 2)'; then
+          exit 0
+        fi
+      interval: 15s
+      timeout: 20s
+      retries: 3
+      start_period: 15s
 volumes:
   rabbitmq-data:
+    driver: local
+  mongodb-data:
     driver: local

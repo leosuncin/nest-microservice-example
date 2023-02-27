@@ -98,4 +98,14 @@ export class UserService {
 
     return user.save();
   }
+
+  async deleteOne(id: User['id']) {
+    const user = await this.getById(id);
+
+    if (!user) {
+      return;
+    }
+
+    return user.remove();
+  }
 }

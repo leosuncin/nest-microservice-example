@@ -24,4 +24,9 @@ export class UserController {
   update(@Payload() update: UpdateUser) {
     return this.userService.updateOne(update.id, update);
   }
+
+  @MessagePattern(userEvents.removeOne)
+  removeOne(@Payload() id: User['id']) {
+    return this.userService.deleteOne(id);
+  }
 }

@@ -15,7 +15,8 @@
         "tsConfig": "apps/order-microservice/tsconfig.app.json",
         "assets": ["apps/order-microservice/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/order-microservice/webpack.config.js"
+        "webpackConfig": "apps/order-microservice/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -54,6 +55,24 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["order-microservice"],
+          "load": true,
+          "tags": [
+            "type=raw,latest",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
         }
       }
     }

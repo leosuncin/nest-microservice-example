@@ -1,4 +1,4 @@
-import type { Register, User } from '@example/shared-interfaces';
+import type { Login, Register, User } from '@example/shared-interfaces';
 import { Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import type { Observable } from 'rxjs';
@@ -14,15 +14,11 @@ export class AuthClientService {
     return this.client.send(authEvents.getData, {});
   }
 
-  emitGetData(): Observable<void> {
-    return this.client.emit(authEvents.getData, {});
-  }
-
   sendRegister(data: Register): Observable<User> {
     return this.client.send(authEvents.register, data);
   }
 
-  emitRegister(data: Register): Observable<void> {
-    return this.client.emit(authEvents.register, data);
+  sendLogin(data: Login): Observable<User> {
+    return this.client.send(authEvents.login, data);
   }
 }

@@ -1,16 +1,8 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Request,
-  UseGuards,
-  UseInterceptors,
-  ValidationPipe,
-} from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { authEvents } from '@example/shared-microservice';
+import { Controller, UseInterceptors, ValidationPipe } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
-import { JWT_GUARD, LOCAL_GUARD } from '../constants/guards';
+import { LoginUser } from '../dtos/login-user.dto';
 import { RegisterUser } from '../dtos/register-user.dto';
 import { TokenInterceptor } from '../interceptors/token.interceptor';
 import { UserService } from '../services/user.service';
@@ -21,27 +13,18 @@ const validationPipe = new ValidationPipe({
   forbidNonWhitelisted: true,
 });
 
-@Controller('auth')
+@Controller()
 @UseInterceptors(TokenInterceptor)
 export class AuthController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('register')
-  register(@Body(validationPipe) register: RegisterUser) {
+  @MessagePattern(authEvents.register)
+  register(@Payload(validationPipe) register: RegisterUser) {
     return this.userService.create(register);
   }
 
-  @Post('login')
-  @UseGuards(AuthGuard(LOCAL_GUARD))
-  login(@Request() request: Express.Request) {
-    return request.user;
-  }
-
-  @Get('me')
-  @UseGuards(AuthGuard(JWT_GUARD))
-  getUser(@Request() request: Express.Request) {
-    return this.userService.getById(
-      (request.user as Record<'sub', string>).sub
-    );
+  @MessagePattern(authEvents.login)
+  login(@Payload(validationPipe) login: LoginUser) {
+    return this.userService.login(login);
   }
 }

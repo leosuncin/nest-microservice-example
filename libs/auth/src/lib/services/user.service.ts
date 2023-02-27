@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import type { FilterQuery, Model } from 'mongoose';
 
+import { LoginUser } from '../dtos/login-user.dto';
 import { RegisterUser } from '../dtos/register-user.dto';
 import { UpdateUser } from '../dtos/update-user.dto';
 import { User, UserDocument } from '../schemas/user.schema';
@@ -33,17 +34,14 @@ export class UserService {
     return count >= 1;
   }
 
-  async login(
-    email: string,
-    password: string
-  ): Promise<UserDocument | undefined> {
-    const user = await this.userModel.findOne({ email }).exec();
+  async login(login: LoginUser): Promise<UserDocument | undefined> {
+    const user = await this.userModel.findOne({ email: login.email }).exec();
 
     if (!user) {
       return;
     }
 
-    const isPasswordValid = await verifyPassword(user.password, password);
+    const isPasswordValid = await verifyPassword(user.password, login.password);
 
     if (!isPasswordValid) {
       return;

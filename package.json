@@ -27,6 +27,8 @@
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nx-tools/container-metadata": "^4.0.3",
+    "@nx-tools/nx-container": "^4.0.3",
     "amqp-connection-manager": "^4.1.10",
     "amqplib": "^0.10.3",
     "axios": "^1.0.0",

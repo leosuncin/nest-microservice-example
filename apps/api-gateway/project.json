@@ -20,7 +20,8 @@
         "tsConfig": "apps/api-gateway/tsconfig.app.json",
         "assets": ["apps/api-gateway/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/api-gateway/webpack.config.js"
+        "webpackConfig": "apps/api-gateway/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -59,6 +60,24 @@
         "ci": {
           "ci": true,
           "codeCoverage": true
+        }
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["api-gateway"],
+          "load": true,
+          "tags": [
+            "type=raw,latest",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
         }
       }
     }

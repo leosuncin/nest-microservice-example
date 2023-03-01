@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { AuthController } from './controllers/auth.controller';
@@ -11,6 +12,9 @@ import { IsNotRegisterConstraint } from './validators/is-not-register.validator'
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    JwtModule.register({
+      secret: process.env['APP_SECRET'] ?? 'ツ🔥 丂ㄩ卩乇尺丂乇匚尺乇ㄒ 🔥ツ',
+    }),
   ],
   controllers: [AuthController, UserController],
   providers: [

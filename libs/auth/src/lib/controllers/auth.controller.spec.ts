@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test } from '@nestjs/testing';
 
@@ -13,6 +14,10 @@ describe('AuthController', () => {
       providers: [
         {
           provide: getModelToken(User.name),
+          useValue: {},
+        },
+        {
+          provide: JwtService,
           useValue: {},
         },
         UserService,

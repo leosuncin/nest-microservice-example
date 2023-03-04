@@ -5,6 +5,9 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
+  - name: Start MongoDB
+    init: mkdir -p /workspace/mongo-data
+    command: mongod --dbpath /workspace/mongo-data
   - name: Prepare everything
     init: pnpm install
     command: pnpm nx run-many --target=serve --all --parallel 4
@@ -15,6 +18,8 @@ ports:
   - port: 16686
     visibility: public
     onOpen: open-preview
+image:
+  file: .gitpod.Dockerfile
 vscode:
   extensions:
     - Angular.ng-template

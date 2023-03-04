@@ -4,6 +4,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import type { Observable } from 'rxjs';
 
 import { authEvents } from '../constants/auth.events';
+import { userEvents } from '../constants/user.events';
 import { InjectAuthClient } from '../decorators/auth.decorator';
 
 @Injectable()
@@ -20,5 +21,13 @@ export class AuthClientService {
 
   sendLogin(data: Login): Observable<User> {
     return this.client.send(authEvents.login, data);
+  }
+
+  sendGetOneUser(id: User['id']): Observable<User> {
+    return this.client.send(userEvents.getOne, id);
+  }
+
+  sendGetAllUser() {
+    return this.client.send(userEvents.getAll, {});
   }
 }

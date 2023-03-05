@@ -1,6 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
+import { useContainer } from 'class-validator';
 
 import { AuthController } from './controllers/auth.controller';
 import { UserController } from './controllers/user.controller';
@@ -24,4 +26,10 @@ import { IsNotRegisterConstraint } from './validators/is-not-register.validator'
   ],
   exports: [],
 })
-export class AuthModule {}
+export class AuthModule implements OnModuleInit {
+  constructor(private readonly module: ModuleRef) {}
+
+  onModuleInit() {
+    useContainer(this.module, { fallbackOnErrors: true });
+  }
+}

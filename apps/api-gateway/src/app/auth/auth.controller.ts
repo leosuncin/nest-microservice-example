@@ -3,6 +3,7 @@ import { AuthClientService } from '@example/shared-microservice';
 import {
   Body,
   Controller,
+  Get,
   Post,
   Request,
   UseGuards,
@@ -28,6 +29,12 @@ export class AuthController {
   @Post('login')
   @UseGuards(AuthGuard('local'))
   login(@Request() request: Express.Request) {
+    return request.user;
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  getUser(@Request() request: Express.Request) {
     return request.user;
   }
 }

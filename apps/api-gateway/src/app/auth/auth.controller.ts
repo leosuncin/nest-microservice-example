@@ -1,15 +1,16 @@
-import { Register } from '@example/shared-interfaces';
+import { Register, User } from '@example/shared-interfaces';
 import { AuthClientService } from '@example/shared-microservice';
 import {
   Body,
   Controller,
   Get,
   Post,
-  Request,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+
+import { CurrentUser } from './auth.decorator';
 
 const validationPipe = new ValidationPipe({
   whitelist: true,
@@ -28,13 +29,13 @@ export class AuthController {
 
   @Post('login')
   @UseGuards(AuthGuard('local'))
-  login(@Request() request: Express.Request) {
-    return request.user;
+  login(@CurrentUser() user: User) {
+    return user;
   }
 
   @Get('me')
   @UseGuards(AuthGuard('jwt'))
-  getUser(@Request() request: Express.Request) {
-    return request.user;
+  getUser(@CurrentUser() user: User) {
+    return user;
   }
 }

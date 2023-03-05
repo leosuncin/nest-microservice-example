@@ -11,3 +11,5 @@ export interface User extends Register {
   id: string;
   isAdmin: boolean;
 }
+
+export type UpdateUser = Partial<Omit<User, 'id'>>;

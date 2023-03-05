@@ -1,10 +1,11 @@
-import { Register, User } from '@example/shared-interfaces';
+import { Register, UpdateUser, User } from '@example/shared-interfaces';
 import { AuthClientService } from '@example/shared-microservice';
 import {
   Body,
   Controller,
   Get,
   Post,
+  Put,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
@@ -37,5 +38,14 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   getUser(@CurrentUser() user: User) {
     return user;
+  }
+
+  @Put('me')
+  @UseGuards(AuthGuard('jwt'))
+  updateUser(
+    @CurrentUser() user: User,
+    @Body(validationPipe) updates: UpdateUser
+  ) {
+    return this.authClient.sendUpdateUser(user.id, updates);
   }
 }

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: proshop-api
+  name: proshop-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proshop-api
+  template:
+    metadata:
+      labels:
+        app: proshop-api
+    spec:
+      containers:
+        - image: api-gateway
+          name: api-gateway
+          ports:
+            - containerPort: 3333

@@ -1,0 +1,13 @@
+rabbitmq:
+  auth:
+    username: proshop
+    password: password
+    securePassword: yes
+
+mongodb:
+  architecture: standalone
+  auth:
+    rootPassword: password
+    usernames: [auth]
+    passwords: [password]
+    databases: [auth]

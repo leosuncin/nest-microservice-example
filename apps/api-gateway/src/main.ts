@@ -4,12 +4,12 @@
  */
 
 import { Logger, NestApplicationOptions } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 
 const globalPrefix = 'api';
-const port = process.env.PORT ?? 3333;
 
 export async function bootstrap(options?: NestApplicationOptions) {
   const app = await NestFactory.create(AppModule, options);
@@ -22,7 +22,10 @@ export async function bootstrap(options?: NestApplicationOptions) {
 if (require.main === module) {
   (async () => {
     const app = await bootstrap();
+    const port = app.get(ConfigService).get<number>('port');
+
     await app.listen(port);
+
     Logger.log(
       `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
     );

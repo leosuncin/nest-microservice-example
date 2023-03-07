@@ -16,14 +16,11 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
         with:
           main-branch-name: master
-      - uses: pnpm/action-setup@v2
+      - uses: NullVoxPopuli/action-setup-pnpm@v1
         with:
-          version: latest
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile --strict-peer-dependencies
+          node-version: lts/*
+          pnpm-version: latest
+          args: '--frozen-lockfile --strict-peer-dependencies'
       - run: pnpm exec nx format:check
       - run: pnpm affected:lint --parallel=4
       - run: pnpm affected:test --parallel=4 --configuration=ci
